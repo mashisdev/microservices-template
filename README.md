@@ -125,7 +125,7 @@ spring:
         private RestTemplate restTemplate;
     
         public String getHelloFromService1() {
-            return restTemplate.getForObject("http://localhost:8081/api/hello", String.class);
+            return restTemplate.getForObject("http://localhost:8081/api/service1/hello", String.class);
         }
     }
   ```
