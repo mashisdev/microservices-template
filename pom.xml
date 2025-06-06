@@ -12,7 +12,7 @@
 	<artifactId>parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>parent</name>
-	<description>Microservice project for Spring Boot</description>
+	<description>Microservices project for Spring Boot</description>
 
 	<packaging>pom</packaging>
 
@@ -21,6 +21,7 @@
 		<module>config-server</module>
 		<module>gateway</module>
 		<module>service1</module>
+		<module>service2</module>
 	</modules>
 
 	<properties>
