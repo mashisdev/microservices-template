@@ -8,7 +8,9 @@ A ready-to-use template for building microservices architecture using **Spring B
 - 🧭 **Eureka Server** (Service discovery and registration)
 - 🧩 Example Services (service1, service2, ...)
 
-# 🧩➕ How to add services:
+<h1>
+  <img src="https://github.com/user-attachments/assets/c70a8e01-430c-41a7-817b-570ea0e12c0e" alt="plus gif" width="28" /> How to add services:
+</h1>
 
 ### 🔗 [RestTemplate](https://www.geeksforgeeks.org/spring-boot-rest-template/) (Synchronous HTTP Client)
 
