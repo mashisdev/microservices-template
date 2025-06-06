@@ -8,11 +8,74 @@ A ready-to-use template for building microservices architecture using **Spring B
 - 🧭 **Eureka Server** (Service discovery and registration)
 - 🧩 Example Services (service1, service2, ...)
 
-# 🏗️ How to add services:
+# 🧩➕ How to add services:
+
+### 🔗 RestTemplate (Synchronous HTTP Client)
 
 <details>
-  <summary>🔗 RestTemplate (Synchronous HTTP Client)</summary>
+  <summary>Dependencies & pom.xml module</summary>
+  <br>
   
+  1. Set the `<parent>` in your new service's `pom.xml`
+  
+  ```xml
+    <parent>
+      <groupId>com.microservice</groupId>
+      <artifactId>parent</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </parent>
+  ```
+
+  2. Add the new service as a `<module>` in the root `pom.xml`
+    
+  ```xml
+    <modules>
+        <module>eureka</module>
+        <module>config-server</module>
+        <module>gateway</module>
+        <module>service1</module>
+        
+        <module>service2</module> <!-- 👈 New microservice -->
+    </modules>
+  ```
+
+</details>
+
+<details>
+  <summary>Config server & client</summary>
+  <br>
+  
+  3. Convert application.properties to `application.yml` and import the _Config Server_ (spring.application.name must match the config file name you'll create in the next step)
+  
+  ```yaml
+    spring:
+      application:
+        name: service2
+    
+      config:
+        import: "optional:configserver:http://localhost:8888"
+  ```
+
+  4. Create a config file for the service in the Config Server (`config-server/src/main/resources/config/`)
+    
+  ```yaml
+    server:
+      port: 8082
+    
+    spring:
+      application:
+        name: service2
+  ```
+
+</details>
+
+
+<details>
+  <summary> <em>RestTemplateConfig</em> </summary>
+  <br>
+
+  5. Add a `@Bean` for *RestTemplate*:
+
   ```java
     @Configuration
     public class RestTemplateConfig {
@@ -22,6 +85,13 @@ A ready-to-use template for building microservices architecture using **Spring B
         }
     }
   ```
+</details>
+  
+<details>
+  <summary><em>Service</em> & <em>Controller</em></summary>
+  <br>
+  
+  6. Service2
 
   ```java
     @Service
@@ -36,4 +106,26 @@ A ready-to-use template for building microservices architecture using **Spring B
     }
   ```
   
+  7. Controller2
+
+  ```java
+    @RestController
+    @RequestMapping("/api/service2")
+    public class Controller2 {
+    
+        @Autowired
+        private Service2 service2;
+    
+        @GetMapping("/hello")
+        public String sayHello() {
+            return "Hello from service 2";
+        }
+    
+        @GetMapping("/call-service1")
+        public String callService1() {
+            return service2.callService1();
+        }
+    }
+  ```
+
 </details>
