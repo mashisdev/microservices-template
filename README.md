@@ -3,10 +3,16 @@
 A ready-to-use template for building microservices architecture using **Spring Boot** and **Spring Cloud**.
 
 - ☕ **Java 21**
-- 🔀 **API Gateway** (Routing and filters)
-- ⚙️ **Config Server** (Centralized configuration)
-- 🧭 **Eureka Server** (Service discovery and registration)
-- 🧩 Example Services (service1, service2, ...)
+- 🔀 **API Gateway** (routing and filters)
+- ⚙️ **Config Server** (centralized configuration)
+- 🧭 **Eureka Server** (service discovery and registration)
+- 🧩 **Example Services** (to demonstrate communication between services)
+  
+  - service1 (that will communicate with the other services)
+  - service2 ➡️ RestTemplate
+  - service3 ➡️ OpenFeign
+  - service4 ➡️ RabbitMQ
+  - service5 ➡️ Kafka
 
 <h1>
   <img src="https://github.com/user-attachments/assets/c70a8e01-430c-41a7-817b-570ea0e12c0e" alt="plus gif" width="28" /> How to add services:
@@ -35,7 +41,7 @@ A ready-to-use template for building microservices architecture using **Spring B
 </details>
 
 <details>
-  <summary> pom.xml configuration (for parent & service) </summary>
+  <summary> <strong>pom.xml</strong> configuration (for parent & service) </summary>
   <br>
   
   2. Set the `<parent>` in your new service's `pom.xml`
