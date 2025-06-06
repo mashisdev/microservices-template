@@ -10,7 +10,7 @@ A ready-to-use template for building microservices architecture using **Spring B
 
 # 🧩➕ How to add services:
 
-### 🔗 RestTemplate (Synchronous HTTP Client)
+### 🔗 [RestTemplate](https://www.geeksforgeeks.org/spring-boot-rest-template/) (Synchronous HTTP Client)
 
 <details>
   <summary>Dependencies & pom.xml module</summary>
