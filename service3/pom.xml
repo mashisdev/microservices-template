@@ -7,10 +7,10 @@
 		<artifactId>parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>service2</artifactId>
+	<artifactId>service3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>service2</name>
-	<description>Service2</description>
+	<name>service3</name>
+	<description>Service3</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -40,6 +40,10 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
 		<dependency>
