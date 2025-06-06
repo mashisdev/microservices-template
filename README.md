@@ -35,14 +35,14 @@ A ready-to-use template for building microservices architecture using **Spring B
         <module>gateway</module>
         <module>service1</module>
         
-        <module>service2</module> <!-- 👈 New microservice -->
+        <module>service2</module> <!-- 👈 2º microservice -->
     </modules>
   ```
 
 </details>
 
 <details>
-  <summary>Config server & client</summary>
+  <summary>Config server & client + API Gateway</summary>
   <br>
   
   3. Convert application.properties to `application.yml` and import the _Config Server_ (spring.application.name must match the config file name you'll create in the next step)
@@ -67,6 +67,30 @@ A ready-to-use template for building microservices architecture using **Spring B
         name: service2
   ```
 
+  5. Add the service2 routes in `gateway.yml`
+
+  ```yaml
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: service1
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/service1/**
+
+        # 👇 2º microservice
+        - id: service2
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/service2/**
+  ```
+
 </details>
 
 
@@ -74,7 +98,7 @@ A ready-to-use template for building microservices architecture using **Spring B
   <summary> <em>RestTemplateConfig</em> </summary>
   <br>
 
-  5. Add a `@Bean` for *RestTemplate*:
+  6. Add a `@Bean` for *RestTemplate*:
 
   ```java
     @Configuration
@@ -91,7 +115,7 @@ A ready-to-use template for building microservices architecture using **Spring B
   <summary><em>Service</em> & <em>Controller</em></summary>
   <br>
   
-  6. Service2
+  7. Service2
 
   ```java
     @Service
@@ -106,7 +130,7 @@ A ready-to-use template for building microservices architecture using **Spring B
     }
   ```
   
-  7. Controller2
+  8. Controller2
 
   ```java
     @RestController
