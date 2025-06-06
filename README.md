@@ -72,10 +72,23 @@ A ready-to-use template for building microservices architecture using **Spring B
 ### 🔗 [RestTemplate](https://www.geeksforgeeks.org/spring-boot-rest-template/) (Synchronous HTTP Client)
 
 <details>
-  <summary>Config server & client + API Gateway</summary>
+  <summary> <b>Spring Web</b> dependency</summary>
+  <br>
+
+  ```xml
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+  ```
+  
+</details>
+
+<details>
+  <summary>Config Server & Client + API Gateway</summary>
   <br>
   
-  1. Convert application.properties to `application.yml` and import the _Config Server_ (spring.application.name must match the config file name you'll create in the next step)
+  1. Convert `application.properties` to `application.yml` and import the _Config Server_ (spring.application.name must match the config file name you'll create in the next step)
   
   ```yaml
     spring:
@@ -185,3 +198,20 @@ spring:
 </details>
 
 ### ⛓️ [OpenFeign](https://medium.com/javarevisited/spring-boot-microservices-openfeign-example-with-e-commerce-574d1ef54443) (Declarative HTTP Client)
+
+<details>
+  <summary> <b>Spring Web</b> + <b>OpenFeign</b> dependencies</summary>
+  <br>
+
+  ```xml
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+  ```
+  
+</details>
