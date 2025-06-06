@@ -12,14 +12,34 @@ A ready-to-use template for building microservices architecture using **Spring B
   <img src="https://github.com/user-attachments/assets/c70a8e01-430c-41a7-817b-570ea0e12c0e" alt="plus gif" width="28" /> How to add services:
 </h1>
 
-### 🔗 [RestTemplate](https://www.geeksforgeeks.org/spring-boot-rest-template/) (Synchronous HTTP Client)
+### 🔧 Common dependencies and module set up
 
 <details>
-  <summary>Dependencies & pom.xml module</summary>
+  <summary> Services common dependencies </summary>
+  <br>
+
+  1. Add *Eureka Discovery Client* and *Config Client* to new service dependencies on [Spring Initializr](https://start.spring.io/)
+
+  ```xml
+    <!-- Eureka Discovery Client -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-config</artifactId>
+    </dependency>
+    <!-- Config Client -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+  ```
+</details>
+
+<details>
+  <summary> pom.xml configuration (for parent & service) </summary>
   <br>
   
-  1. Set the `<parent>` in your new service's `pom.xml`
-  
+  2. Set the `<parent>` in your new service's `pom.xml`
+
   ```xml
     <parent>
       <groupId>com.microservice</groupId>
@@ -28,7 +48,7 @@ A ready-to-use template for building microservices architecture using **Spring B
     </parent>
   ```
 
-  2. Add the new service as a `<module>` in the root `pom.xml`
+  3. Add the new service as a `<module>` in the root `pom.xml`
     
   ```xml
     <modules>
@@ -37,17 +57,19 @@ A ready-to-use template for building microservices architecture using **Spring B
         <module>gateway</module>
         <module>service1</module>
         
-        <module>service2</module> <!-- 👈 2º microservice -->
+        <module>serviceN</module> <!-- 👈 Nº microservice -->
     </modules>
   ```
 
 </details>
 
+### 🔗 [RestTemplate](https://www.geeksforgeeks.org/spring-boot-rest-template/) (Synchronous HTTP Client)
+
 <details>
   <summary>Config server & client + API Gateway</summary>
   <br>
   
-  3. Convert application.properties to `application.yml` and import the _Config Server_ (spring.application.name must match the config file name you'll create in the next step)
+  1. Convert application.properties to `application.yml` and import the _Config Server_ (spring.application.name must match the config file name you'll create in the next step)
   
   ```yaml
     spring:
@@ -58,7 +80,7 @@ A ready-to-use template for building microservices architecture using **Spring B
         import: "optional:configserver:http://localhost:8888"
   ```
 
-  4. Create a config file for the service in the Config Server (`config-server/src/main/resources/config/`)
+  2. Create a config file for the service in the Config Server (`config-server/src/main/resources/config/`)
     
   ```yaml
     server:
@@ -69,7 +91,7 @@ A ready-to-use template for building microservices architecture using **Spring B
         name: service2
   ```
 
-  5. Add the service2 routes in `gateway.yml`
+  3. Add the service2 routes in `gateway.yml`
 
   ```yaml
 server:
@@ -100,7 +122,7 @@ spring:
   <summary> <em>RestTemplateConfig</em> </summary>
   <br>
 
-  6. Add a `@Bean` for *RestTemplate*:
+  4. Add a `@Bean` for *RestTemplate*:
 
   ```java
     @Configuration
@@ -117,7 +139,7 @@ spring:
   <summary><em>Service</em> & <em>Controller</em></summary>
   <br>
   
-  7. Service2
+  5. Service2
 
   ```java
     @Service
@@ -132,7 +154,7 @@ spring:
     }
   ```
   
-  8. Controller2
+  6. Controller2
 
   ```java
     @RestController
@@ -155,3 +177,5 @@ spring:
   ```
 
 </details>
+
+### ⛓️ [OpenFeign](https://medium.com/javarevisited/spring-boot-microservices-openfeign-example-with-e-commerce-574d1ef54443) (Declarative HTTP Client)
