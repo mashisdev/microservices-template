@@ -99,7 +99,7 @@ A ready-to-use template for building microservices architecture using **Spring B
         import: "optional:configserver:http://localhost:8888"
   ```
 
-  2. Create a config file for the service in the Config Server (`config-server/src/main/resources/config/`)
+  2. Create a config file `service2.yml` for the service in the Config Server (`config-server/src/main/resources/config/`)
     
   ```yaml
     server:
@@ -203,15 +203,122 @@ spring:
   <summary> <b>Spring Web</b> + <b>OpenFeign</b> dependencies</summary>
   <br>
 
-  ```xml
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
-		</dependency>
-  ```
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>
+```
   
 </details>
+
+<details>
+  <summary>Config Server & Client + API Gateway</summary>
+  <br>
+  
+  1. Convert `application.properties` to `application.yml` and import the _Config Server_ (spring.application.name must match the config file name you'll create in the next step)
+  
+  ```yaml
+  spring:
+    application:
+      name: service3
+    
+    config:
+      import: "optional:configserver:http://localhost:8888"
+  ```
+
+  2. Create a config file `service3.yml` for the service in the Config Server (`config-server/src/main/resources/config/`)
+    
+  ```yaml
+  server:
+    port: 8083
+    
+  spring:
+    application:
+      name: service3
+
+  service1:
+    url: http://localhost:8081
+  ```
+
+  3. Add the service3 routes in `gateway.yml`
+
+  ```yaml
+  server:
+    port: 8080
+
+  spring:
+    application:
+      name: gateway
+    cloud:
+      gateway:
+        routes:
+          - id: service1
+            uri: http://localhost:8081
+            predicates:
+              - Path=/api/service1/**
+          # 👇 3º microservice
+          - id: service3
+            uri: http://localhost:8083
+            predicates:
+              - Path=/api/service3/**
+  ```
+
+</details>
+
+<details>
+  <summary> Create a <em>Service</em> interface with <em>@FeignClient</em> and its <em>Controller</em></summary>
+  <br>
+
+  4. Add `@EnableFeignClients` in the application:
+
+```java
+@SpringBootApplication
+@EnableFeignClients
+public class Service3Application {
+
+	public static void main(String[] args) { SpringApplication.run(Service3Application.class, args); }
+
+}
+```
+
+  5. Service3
+
+```java
+@FeignClient(name = "service-1", url = "${service1.url}")
+public interface Service3 {
+
+    @GetMapping("/api/service1/hello")
+    String callService1();
+}
+```
+     
+  6. Controller3
+
+```java
+@RestController
+@RequestMapping("/api/service3")
+public class Controller3 {
+
+    @Autowired
+    private Service3 service3;
+
+    @GetMapping("/hello")
+    public String sayHello() {
+        return "Hello from service 3";
+    }
+
+    @GetMapping("/call-service1")
+    public String callService1() {
+        return service3.callService1();
+    }
+}    
+```
+
+</details>
+
+
