@@ -26,18 +26,18 @@ A ready-to-use template for building microservices architecture using **Spring B
 
   1. Add *Eureka Discovery Client* and *Config Client* to new service dependencies on [Spring Initializr](https://start.spring.io/)
 
-  ```xml
-    <!-- Eureka Discovery Client -->
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-config</artifactId>
-    </dependency>
-    <!-- Config Client -->
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-    </dependency>
-  ```
+```xml
+<!-- Eureka Discovery Client -->
+<dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-config</artifactId>
+</dependency>
+<!-- Config Client -->
+<dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+</dependency>
+```
 </details>
 
 <details>
@@ -46,26 +46,26 @@ A ready-to-use template for building microservices architecture using **Spring B
   
   2. Set the `<parent>` in your new service's `pom.xml`
 
-  ```xml
-    <parent>
-      <groupId>com.microservice</groupId>
-      <artifactId>parent</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </parent>
-  ```
+```xml
+<parent>
+  <groupId>com.microservice</groupId>
+  <artifactId>parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+</parent>
+```
 
   3. Add the new service as a `<module>` in the root `pom.xml`
-    
-  ```xml
-    <modules>
-        <module>eureka</module>
-        <module>config-server</module>
-        <module>gateway</module>
-        <module>service1</module>
-        
-        <module>serviceN</module> <!-- 👈 Nº microservice -->
-    </modules>
-  ```
+	
+```xml
+<modules>
+  <module>eureka</module>
+  <module>config-server</module>
+  <module>gateway</module>
+  <module>service1</module>
+		
+  <module>serviceN</module> <!-- 👈 Nº microservice -->
+</modules>
+```
 
 </details>
 
@@ -75,12 +75,12 @@ A ready-to-use template for building microservices architecture using **Spring B
   <summary> <b>Spring Web</b> dependency</summary>
   <br>
 
-  ```xml
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-  ```
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+```
   
 </details>
 
@@ -90,29 +90,29 @@ A ready-to-use template for building microservices architecture using **Spring B
   
   1. Convert `application.properties` to `application.yml` and import the _Config Server_ (spring.application.name must match the config file name you'll create in the next step)
   
-  ```yaml
-    spring:
-      application:
-        name: service2
-    
-      config:
-        import: "optional:configserver:http://localhost:8888"
-  ```
+```yaml
+spring:
+  application:
+    name: service2
+
+  config:
+    import: "optional:configserver:http://localhost:8888"
+```
 
   2. Create a config file `service2.yml` for the service in the Config Server (`config-server/src/main/resources/config/`)
     
-  ```yaml
-    server:
-      port: 8082
-    
-    spring:
-      application:
-        name: service2
-  ```
+```yaml
+server:
+  port: 8082
+
+spring:
+  application:
+    name: service2
+```
 
   3. Add the service2 routes in `gateway.yml`
 
-  ```yaml
+```yaml
 server:
   port: 8080
 
@@ -132,7 +132,7 @@ spring:
           uri: http://localhost:8082
           predicates:
             - Path=/api/service2/**
-  ```
+```
 
 </details>
 
@@ -143,15 +143,17 @@ spring:
 
   4. Add a `@Bean` for *RestTemplate*:
 
-  ```java
-    @Configuration
-    public class RestTemplateConfig {
-        @Bean
-        public RestTemplate restTemplate() {
-            return new RestTemplate();
-        }
+```java
+@Configuration
+public class RestTemplateConfig {
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
-  ```
+}
+
+```
 </details>
   
 <details>
@@ -160,40 +162,40 @@ spring:
   
   5. Service2
 
-  ```java
-    @Service
-    public class Service2 {
+```java
+@Service
+public class Service2 {
 
-        @Autowired
-        private RestTemplate restTemplate;
-    
-        public String getHelloFromService1() {
-            return restTemplate.getForObject("http://localhost:8081/api/service1/hello", String.class);
-        }
+    @Autowired
+    private RestTemplate restTemplate;
+
+    public String callService1() {
+        return restTemplate.getForObject("http://localhost:8081/api/service1/hello", String.class);
     }
-  ```
+}
+```
   
   6. Controller2
 
-  ```java
-    @RestController
-    @RequestMapping("/api/service2")
-    public class Controller2 {
-    
-        @Autowired
-        private Service2 service2;
-    
-        @GetMapping("/hello")
-        public String sayHello() {
-            return "Hello from service 2";
-        }
-    
-        @GetMapping("/call-service1")
-        public String callService1() {
-            return service2.callService1();
-        }
+```java
+@RestController
+@RequestMapping("/api/service2")
+public class Controller2 {
+
+    @Autowired
+    private Service2 service2;
+
+    @GetMapping("/hello")
+    public String sayHello() {
+        return "Hello from service 2";
     }
-  ```
+
+    @GetMapping("/call-service1")
+    public String callService1() {
+        return service2.callService1();
+    }
+}
+```
 
 </details>
 
