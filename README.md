@@ -1,4 +1,4 @@
-# 📦Microservices template
+# <img src="https://github.com/user-attachments/assets/5852398b-203f-49c8-ac2f-05434ded8015" alt="plus gif" width="33" /> Microservices template
 
 A ready-to-use template for building microservices architecture using **Spring Boot** and **Spring Cloud**.
 
