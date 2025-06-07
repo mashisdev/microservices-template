@@ -8,11 +8,12 @@ A ready-to-use template for building microservices architecture using **Spring B
 - 🧭 **Eureka Server** (service discovery and registration)
 - 🧩 **Example Services** (to demonstrate communication between services)
   
-  - service1 (that will communicate with the other services)
+  - service1 (that will communicate with services 2 and 3)
   - service2 ➡️ RestTemplate
   - service3 ➡️ OpenFeign
-  - service4 ➡️ RabbitMQ
-  - service5 ➡️ Kafka
+  - service4 ➡️ RabbitMQ publisher
+  - service5 ➡️ RabbitMQ consumer
+  - service6 ➡️ Apache Kafka
 
 <h1>
   <img src="https://github.com/user-attachments/assets/c70a8e01-430c-41a7-817b-570ea0e12c0e" alt="plus gif" width="28" /> How to add services:
