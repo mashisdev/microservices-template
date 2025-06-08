@@ -23,6 +23,8 @@
 		<module>service1</module>
 		<module>service2</module>
 		<module>service3</module>
+		<module>service4</module>
+		<module>service5</module>
 	</modules>
 
 	<properties>

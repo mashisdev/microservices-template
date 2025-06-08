@@ -1,0 +1,11 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: service5
+  rabbitmq:
+    port: '5672'
+    host: localhost
+    username: admin
+    password: password
