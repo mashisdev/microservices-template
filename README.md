@@ -1,4 +1,4 @@
-# <img src="https://github.com/user-attachments/assets/5852398b-203f-49c8-ac2f-05434ded8015" alt="plus gif" width="33" /> Microservices template
+# <img src="https://github.com/user-attachments/assets/5852398b-203f-49c8-ac2f-05434ded8015" alt="package gif" width="33" /> Microservices template
 
 A ready-to-use template for building microservices architecture using **Spring Boot** and **Spring Cloud**.
 
@@ -324,4 +324,4 @@ public class Controller3 {
 
 </details>
 
-
+### <img src="https://github.com/user-attachments/assets/cfb7d2a9-88a4-4e84-9fb8-ee27a0ce1861" alt="rabbitmq gif" width="23" /> [RabbitMQ](https://rameshfadatare.medium.com/spring-boot-microservices-with-rabbitmq-example-92a38cbe08fc) (Async Message Broker)
