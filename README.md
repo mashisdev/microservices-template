@@ -325,3 +325,18 @@ public class Controller3 {
 </details>
 
 ### <img src="https://github.com/user-attachments/assets/cfb7d2a9-88a4-4e84-9fb8-ee27a0ce1861" alt="rabbitmq gif" width="23" /> [RabbitMQ](https://rameshfadatare.medium.com/spring-boot-microservices-with-rabbitmq-example-92a38cbe08fc) (Async Message Broker)
+
+<details>
+  <summary> RabbitMQ for publisher & consumer </summary>
+  <br>
+
+  1. Add *RabbitMQ* to new services dependencies
+
+```xml
+<!-- Spring for RabbitMQ -->
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-amqp</artifactId>
+</dependency>
+```
+</details>
