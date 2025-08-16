@@ -327,6 +327,34 @@ public class Controller3 {
 ### <img src="https://github.com/user-attachments/assets/cfb7d2a9-88a4-4e84-9fb8-ee27a0ce1861" alt="rabbitmq gif" width="23" /> [RabbitMQ](https://rameshfadatare.medium.com/spring-boot-microservices-with-rabbitmq-example-92a38cbe08fc) (Async Message Broker)
 
 <details>
+  <summary> Set up a  RabbitMQ service with 🐳Docker Compose </summary>
+  <br>
+
+```yaml
+services:
+  rabbitmq:
+    image: rabbitmq:4.1-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: password
+    volumes:
+      - rabbitmq-lib:/var/lib/rabbitmq
+      - rabbitmq-log:/var/log/rabbitmq
+
+volumes:
+  rabbitmq-lib:
+    driver: local
+  rabbitmq-log:
+    driver: local
+```
+
+</details>
+
+<details>
   <summary> RabbitMQ for publisher & consumer </summary>
   <br>
 
