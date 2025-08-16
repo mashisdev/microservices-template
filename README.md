@@ -324,7 +324,7 @@ public class Controller3 {
 
 </details>
 
-### <img src="https://github.com/user-attachments/assets/cfb7d2a9-88a4-4e84-9fb8-ee27a0ce1861" alt="rabbitmq gif" width="23" /> [RabbitMQ](https://rameshfadatare.medium.com/spring-boot-microservices-with-rabbitmq-example-92a38cbe08fc) (Async Message Broker)
+### <img src="https://github.com/user-attachments/assets/cfb7d2a9-88a4-4e84-9fb8-ee27a0ce1861" alt="rabbitmq logo" width="23" /> [RabbitMQ](https://rameshfadatare.medium.com/spring-boot-microservices-with-rabbitmq-example-92a38cbe08fc) (Async Message Broker)
 
 <details>
   <summary> Set up a  RabbitMQ service with 🐳Docker Compose </summary>
@@ -456,3 +456,7 @@ public class RabbitMQConfig {
 ```
 
 </details>
+
+### <img src="https://github.com/user-attachments/assets/4e5c094d-a271-4396-bdd1-075aeb3ef23d" alt="kafka logo" width="25" /> [Kafka](https://kafka.apache.org/) (Distributed Event Streaming Platform)
+
+
