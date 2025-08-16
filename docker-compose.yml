@@ -9,7 +9,7 @@ services:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: password
     volumes:
-      - rabbitmq-lib:/var/lib/rabbitmq/
+      - rabbitmq-lib:/var/lib/rabbitmq
       - rabbitmq-log:/var/log/rabbitmq
 
 volumes:
