@@ -339,4 +339,92 @@ public class Controller3 {
   <artifactId>spring-boot-starter-amqp</artifactId>
 </dependency>
 ```
+
+  2. Create `service4.yml` and `service5.yml` files in Config Server (`config-server/src/main/resources/config/`)
+
+```yaml
+server:
+  port: 8084 # or 8085
+
+spring:
+  application:
+    name: service4 # or service5
+  rabbitmq:
+    port: '5672'
+    host: localhost
+    username: admin
+    password: password
+```
+
+</details>
+
+<details>
+  <summary> RabbitMQ consumer </summary>
+  <br>
+
+  1. Create a *MessageProducer* class that uses RabbitTemplate to send messages to a RabbitMQ queue
+
+```java
+@Service
+public class MessageProducer {
+
+    private final RabbitTemplate rabbitTemplate;
+
+    public MessageProducer(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
+
+    public void sendMessage(String message) {
+        rabbitTemplate.convertAndSend(RabbitMQConfig.QUEUE_NAME, message);
+    }
+}
+```
+
+  2.  Allow clients to send a message to a RabbitMQ queue via an HTTP GET request to `/api/service4/send?message=...`
+
+```java
+@RestController
+@RequestMapping("/api/service4")
+public class MessageController {
+
+    private final MessageProducer messageProducer;
+
+    public MessageController(MessageProducer messageProducer) {
+        this.messageProducer = messageProducer;
+    }
+
+    @GetMapping("/send")
+    public String sendMessage(@RequestParam String message) {
+        messageProducer.sendMessage(message);
+        return "Message sent: " + message;
+    }
+}
+```
+
+</details>
+
+<details>
+  <summary> RabbitMQ consumer </summary>
+  <br>
+
+  1. Create a *RabbitConfig* class to set the `@RabbitListener`
+
+```java
+@Configuration
+public class RabbitMQConfig {
+
+    public static final String QUEUE_NAME = "myQueue";
+
+    @Bean
+    public Queue exampleQueue() {
+        return new Queue(QUEUE_NAME, false);
+    }
+
+    @RabbitListener(queues = QUEUE_NAME)
+    public void listen(String message) {
+        System.out.println("Received message: " + message);
+    }
+}
+```
+
 </details>
