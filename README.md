@@ -387,7 +387,7 @@ spring:
 </details>
 
 <details>
-  <summary> RabbitMQ consumer </summary>
+  <summary> RabbitMQ producer </summary>
   <br>
 
   1. Create a *MessageProducer* class that uses RabbitTemplate to send messages to a RabbitMQ queue
